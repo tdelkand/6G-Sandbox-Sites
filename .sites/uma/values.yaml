@@ -37,19 +37,19 @@ site_one_templates:
     disk_id: 28
     disk_size: 10000
   vm_s:
-    id: 42
+    id: 56
     disk_id: 28
     disk_size: 15000
   vm_m:
-    id: 42
+    id: 57
     disk_id: 28
     disk_size: 20000
   vm_l:
-    id: 42
+    id: 58
     disk_id: 28
     disk_size: 40000
   vm_xl:
-    id: 42
+    id: 59
     disk_id: 28
     disk_size: 40000
 

@@ -30,6 +30,8 @@ site_s3_server:
   force_path_style: "true"
 
 site_one_templates:
+  oneKE:
+    id: 76
   tn_bastion:
     id: 41
   vm_xs:

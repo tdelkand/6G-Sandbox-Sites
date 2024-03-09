@@ -31,7 +31,7 @@ site_s3_server:
 
 site_one_templates:
   k8s_medium:
-    id: 76
+    id: 122
   tn_bastion:
     id: 41
   vm_xs:

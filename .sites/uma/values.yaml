@@ -9,6 +9,7 @@
 
 site_hypervisor: one #one, vmware, etc ...
 site_default_network_id: 0
+site_public_network_id: 280
 site_networks:
   - name: External Network   # Representative Name
     id: 0                    # ID from OpenNebula Networks List

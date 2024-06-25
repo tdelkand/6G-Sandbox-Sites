@@ -8,18 +8,21 @@
 #
 
 site_hypervisor: one #one, vmware, etc ...
-site_default_network_id: 0
-site_public_network_id: 280
 site_public_ip: "150.214.47.156"
-site_networks:
-  - name: External Network   # Representative Name
-    id: 0                    # ID from OpenNebula Networks List
-    if_name: br_281_srv      # Interface that support this Network
-  - name: NTN Network
-    id: 13
-    if_name: br_120
-site_vxlan_if: br_281_srv     # It must be the name of the interface on which the new vxlan will be created
-site_network_clusters: [0, 100, 101, 102]
+
+# Already created VNets
+site_networks_id:
+  default: 0
+  ntn: 13
+  public: 200
+
+# Interface for newly created VNets
+site_vxlan_if: br_281_srv
+
+
+site_clusters: [0, 100, 101, 102]
+
+
 
 site_s3_server:
   endpoint: "http://10.11.28.95:9000"
@@ -31,35 +34,30 @@ site_s3_server:
   skip_region_validation: "true"
   force_path_style: "true"
 
-site_one_templates:
-  k8s_medium:
-    id: 126
+site_available_components:
+  tn_init:
   tn_bastion:
-    id: 41
-  vm_xs:
-    id: 42
-    disk_id: 28
-    disk_size: 10000
-  vm_s:
-    id: 56
-    disk_id: 28
-    disk_size: 15000
-  vm_m:
-    id: 57
-    disk_id: 28
-    disk_size: 20000
-  vm_l:
-    id: 58
-    disk_id: 28
-    disk_size: 40000
-  vm_xl:
-    id: 59
-    disk_id: 28
-    disk_size: 40000
+    template_id: 41
+    image_id: 106
+  tn_vxlan:
+  vnet:
+  oneKE:
+    127:
+      template_id: 201
+    129:
+      template_id: 202
+  open5gs:
+  vm_kvm:
+    template_id: 97
+    image_id: 125
   ueransim:
-    id: 71
+    template_id: 96
+    image_id: 124
+  tsn:
+    quantity: 1
+    ttl: ""
 
-site_jenkins_ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCCweY1fDXtrxltSW36ln2Ktk8V0E6TDfqsjEBfW6gAqco2k5BnosCVVm7kWCYOmvYa94e1yMA/j9H037TQBiUu9iQHjxaxR4rs/1plH3XyIYItPWdwKft22QrQBUBlLUcrCdII/adpdFnPzZux5xU34Ytm7XjSAikVlwv4TIYcWC3J9TGvmA4YaoIwcgJEwtaGCuUhkjn03CLx3YB++0bGnsicpw8fi0EGOfoNvRexGRXAE/Ogad+8RF3mWyVl+CYhcdbEOcNfdbp9XyZY9WT8yyimzSlp3gADmA5e5gnlXUjnpiHlrjVrqLt2JOc7QD5pjO92IPR6M9XC6Sz+piG255+FrVBK5KaPcQi6Lo3BGl1sbWFte/UM/TvIRLhJGYEZjpaqn6g+Bh99votEs7a+L7J+YeR3qCLnmaUPIXNue4yz/zJpEQ5Aj+RFybybinK5SV8pUG+H6blJa3TZPD4em7sZ0HLg/VyHiILiIndCuylem0HpcgcI8h/vWSw+syU= jenkins"
-site_jenkins_script_base64: "IyEvYmluL2Jhc2gKc3NoLWtleWdlbiAtdCByc2EgLU4gIiIgLWYgfi8uc3NoL2lkX3JzYQplY2hvIFBhc3N3b3JkQXV0aGVudGljYXRpb24geWVzID4gL2V0Yy9zc2gvc3NoZF9jb25maWcuZC9QYXNzd29yZEF1dGhlbnRpY2F0aW9uLmNvbmYKZWNobyAic3NoLXJzYSBBQUFBQjNOemFDMXljMkVBQUFBREFRQUJBQUFCZ1FDQ3dlWTFmRFh0cnhsdFNXMzZsbjJLdGs4VjBFNlREZnFzakVCZlc2Z0FxY28yazVCbm9zQ1ZWbTdrV0NZT212WWE5NGUxeU1BL2o5SDAzN1RRQmlVdTlpUUhqeGF4UjRycy8xcGxIM1h5SVlJdFBXZHdLZnQyMlFyUUJVQmxMVWNyQ2RJSS9hZHBkRm5Qelp1eDV4VTM0WXRtN1hqU0Fpa1Zsd3Y0VElZY1dDM0o5VEd2bUE0WWFvSXdjZ0pFd3RhR0N1VWhram4wM0NMeDNZQisrMGJHbnNpY3B3OGZpMEVHT2ZvTnZSZXhHUlhBRS9PZ2FkKzhSRjNtV3lWbCtDWWhjZGJFT2NOZmRicDlYeVpZOVdUOHl5aW16U2xwM2dBRG1BNWU1Z25sWFVqbnBpSGxyalZycUx0MkpPYzdRRDVwak85MklQUjZNOVhDNlN6K3BpRzI1NStGclZCSzVLYVBjUWk2TG8zQkdsMXNiV0Z0ZS9VTS9UdklSTGhKR1lFWmpwYXFuNmcrQmg5OXZvdEVzN2ErTDdKK1llUjNxQ0xubWFVUElYTnVlNHl6L3pKcEVRNUFqK1JGeWJ5YmluSzVTVjhwVUcrSDZibEphM1RaUEQ0ZW03c1owSExnL1Z5SGlJTGlJbmRDdXlsZW0wSHBjZ2NJOGgvdldTdytzeVU9IGplbmtpbnMiID4+IC9yb290Ly5zc2gvYXV0aG9yaXplZF9rZXlzCnN5c3RlbWN0bCByZXN0YXJ0IHNzaGQK"
-site_one_bastion_default_password: "UMAoperator"
+site_jenkins_ssh_user: "jenkins"
+site_jenkins_ssh_public_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPfCNCGjsdwCfgfbO2a5if82K/ldXaSkXDmB/HhiZXh6 jenkins@jenkins-master"
+site_admin_ssh_public_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAiYxUtVUH5mNJls/u0TWcl8lUC24349gtFLpVlBiuaSq1wLAScLCDMP0VGwG+VDDECzUdSLbTwZLFCs4ClmZqixxFQyRVtjjK5noqtniY6AIJvHGNzwEfTeHhqcomZFsEh3BHiAiLjByoLyMIavA8gHLdXnyG80PbPPBlqSFy/ea/Q2m04caJdjbkyZI6UuRPn+pDnZ3iP/8SyBRTDx4pDmy4QhXi+7NR66TkBLViyv6pnNKR6Agu0ZKrrDbZBIiwLElbqkj/mw7QZfwYGcsNKdGXQj3VJIW+tSf8ZAW345uNEQfNpYzgB1k6dyGaOvVh4GQCTePscp37oySsR245CpQYz9K6OhI2ht9HpprI7sNh/li5o2QL+mIkxwgupOj7FbyB7AQ6HZG3NE8AWvWTKZaVSTuzDMYYMl74ujp2ldO+Wg/kudDKobVhbwYXa/SMJwZsqo9a0b6dzd9IZTI8IRQ6ee8l7lxLlsukS8t4CIPUK8ZV4OEdg0Y/u3D+nms= discovery_admin"
 site_domain: "6gsandbox.uma.internal"

@@ -19,12 +19,11 @@ Particular information of each site for the deployment of components of the [6G-
 ## Site Directory Structure
 
 ```
-.sites/                 # Main folder
-└── site_name/          # Folder with the site name
-    └── values.yaml     # File containing the encrypted site information
+site_name/       # Folder with the site name
+└── core.yaml    # File containing the encrypted site information
 ```
 
-The [`.site/.dummy_site/values.yaml`](.sites/.dummy_site/values.yaml) file is a template with the information that has to be indicated for each platform.
+The [`.dummy_site/core.yaml`](.dummy_site/core.yaml) file is a template with the information that has to be indicated for each platform.
 
 ## Getting started
 
@@ -73,10 +72,10 @@ where:
 example:
 
 ```sh
-ansible-vault encrypt test/values.yaml --vault-password-file=test/pass.txt
+ansible-vault encrypt test/core.yaml --vault-password-file=test/pass.txt
 ```
 
-This will **replace** the file test/values.yaml with the encrypted content.
+This will **replace** the file test/core.yaml with the encrypted content.
 
 ### Decrypt Site File
 
@@ -92,9 +91,9 @@ where:
 example:
 
 ```sh
-ansible-vault decrypt test/values.yaml --vault-password-file=test/pass.txt
+ansible-vault decrypt test/core.yaml --vault-password-file=test/pass.txt
 ```
 
-This will replace the file test/values.yaml with the raw content.
+This will replace the file test/core.yaml with the raw content.
 
 <p align="right"><a href="#readme-top">Back to top&#x1F53C;</a></p>

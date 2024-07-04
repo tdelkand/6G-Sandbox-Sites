@@ -1,15 +1,15 @@
-# This is information about infrastructure, systems and available equipment that has a static nature and 
-# may differ between different sites. 
-# It is a way to simplify and homogenize the definition of components and their deployments.
+# Static information about the infrastructure, systems and available equipment of each site
 #
-# All first level variables SHOULD start by the prefix "site_"
+# All variables SHOULD start by the prefix "site_"
 #
-# SITE: SAMPLE SITE
+# SITE: SAMPLE_SITE
 #
 
-site_hypervisor: one           # one, vmware, etc ...
-site_public_ip: 15.32.62.12    # Needed for VPN connections to the tn_bastion
 site_domain: "sample.domain.cloud"
+site_public_ip: 15.32.62.12    # Needed for VPN connections to the tn_bastion
+
+site_hypervisor: one           # one, vmware, etc ...
+site_clusters: [0]             # In OpenNebula components, list of cluster IDs where VNets are created.
 
 # In OpenNebula components, VNet ID of some relevant Virtual Networks previously created
 site_networks_id:
@@ -21,8 +21,8 @@ site_networks_id:
 # In OpenNebula components, Network Interface on the host where new VNets can be created. Can be a physical NIC, but a previoiusly created linux bridge is preferable.
 site_vxlan_if: br-mgmt
 
-# In OpenNebula components, list of cluster IDs where VNets are created. Just add all cluster IDs
-site_clusters: [0]
+# Optional admin ssh key to access to any TN component
+site_admin_ssh_public_key: "ssh-rsa ... admin"       
 
 # Self-hosted MinIO S3 storage details. Default values are ok (except the endpoint), but you can modify them if you know what you are doing 
 site_s3_server:
@@ -60,5 +60,3 @@ site_available_components:
   tsn:
     quantity: 1
     ttl: ""
-
-site_admin_ssh_public_key: "ssh-rsa ... admin"       # optional public SSH key for the site admin to log in

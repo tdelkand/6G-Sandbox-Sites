@@ -1,0 +1,58 @@
+# Static information about the infrastructure, systems and available equipment of each site
+#
+# All variables SHOULD start by the prefix "site_"
+#
+# SITE: uma_test
+#
+
+site_domain: test.uma.internal
+site_public_ip:  # Pregunta a javier jimenez o quien lo lleve
+
+site_hypervisor: one
+site_clusters: [0]
+
+site_networks_id:
+  default: 0
+  #ntn:
+  #public:
+  #starlink:
+
+site_vxlan_if: onebr.800    # el NIC/bridge que tengan tus hosts sobre el que montar subredes
+# la de la vnet "default" está bien, pero si tienes otra interfaz dedicada pues mejor
+
+#site_admin_ssh_public_key:    # Es opcional, ntn (no te rayes, no non terrestrial network)
+
+site_s3_server:
+  endpoint: "http://10.180.0.2:9000"
+  bucket: "trial-networks"
+  region: "main"
+  skip_requesting_account_id: "true"
+  skip_credentials_validation: "true"
+  skip_metadata_api_check: "true"
+  skip_region_validation: "true"
+  force_path_style: "true"
+
+# No tengo los templates disponibles de: bastion  -> copia nuestra imagen de la uma
+site_available_components:
+  tn_init: null
+  tn_bastion:
+    template_id:
+    image_id:
+  tn_vxlan: null
+  vnet: null
+  oneKE:
+    127:
+      template_id: ""
+    129:
+      template_id: ""
+  open5gs: null
+  vm_kvm:
+    template_id: ""
+    image_id: ""
+  ueransim:
+    template_id: 14
+    image_id: 9
+  tsn:
+    quantity: 1
+    ttl: ""
+

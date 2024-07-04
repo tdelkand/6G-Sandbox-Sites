@@ -1,0 +1,46 @@
+site_hypervisor: one
+site_public_ip:  # ¿Cual es nuestra ip publica? ¿asociada a la ip default?
+site_domain: 6gsandbox.test.uma.internal # ¿Le puedo poner .test.?
+
+site_networks_id:
+  default: 0 # solo la default es la que se usa
+
+site_vxlan_if: onebr.800 # seria la fisica que tiene la network default?
+
+site_clusters: [0] # solo hay un cluster
+
+site_s3_server:
+  endpoint: "http://10.180.0.2:9000"
+  bucket: "trial-networks"
+  region: "main"
+  skip_requesting_account_id: "true"
+  skip_credentials_validation: "true"
+  skip_metadata_api_check: "true"
+  skip_region_validation: "true"
+  force_path_style: "true"
+
+# No tengo los templates disponibles de: bastion
+site_available_components:
+  tn_init: null
+  tn_bastion:
+    template_id:
+    image_id:
+  tn_vxlan: null
+  vnet: null
+  oneKE:
+    127:
+      template_id: ""
+    129:
+      template_id: ""
+  open5gs: null
+  vm_kvm:
+    template_id: ""
+    image_id: ""
+  ueransim:
+    template_id: 14
+    image_id: 9
+  tsn:
+    quantity: 1
+    ttl: ""
+
+site_admin_ssh_public_key: "ssh-rsa ... admin" # No se si debe ser la clave publica del servidor?

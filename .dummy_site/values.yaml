@@ -61,8 +61,4 @@ site_available_components:
     quantity: 1
     ttl: ""
 
-# Jenkins pipeline log into the VM compoentns as the "site_jenkins_ssh_user"
-site_jenkins_ssh_user: "jenkins"
-# New VMs will include the following ssh keys in /home/{{ site_jenkins_ssh_user }}/.ssh/authorized_keys
-site_jenkins_ssh_public_key: "ssh-rsa ... jenkins"   # public SSH key for the jenkins to log in
 site_admin_ssh_public_key: "ssh-rsa ... admin"       # optional public SSH key for the site admin to log in

@@ -12,6 +12,7 @@ Particular information of each site for the deployment of components of the [6G-
   - [Install ansible-core](#install-ansible-core)
   - [Password Encrypt/Decrypt](#password-encryptdecrypt)
   - [Encrypt Site File](#encrypt-site-file)
+  - [Edit Encrypted Site File](#edit-encrypted-site-file)
   - [Decrypt Site File](#decrypt-site-file)
 
 </details>
@@ -76,6 +77,25 @@ ansible-vault encrypt test/core.yaml --vault-password-file=test/pass.txt
 ```
 
 This will **replace** the file test/core.yaml with the encrypted content.
+
+### Edit Encrypted Site File
+
+```sh
+ansible-vault edit test/file_name_encrypted.yaml --vault-password-file=path/file_name.txt
+```
+
+where:
+
+- `test/file_name_encrypted.yaml` is the path to the file with encrypted content.
+- `--vault-password-file=path/file_name.txt` is the path to the file containing the password.
+
+example:
+
+```sh
+ansible-vault edit test/core.yaml --vault-password-file=test/pass.txt
+```
+
+This will return the updated and encrypted file with the new changes.
 
 ### Decrypt Site File
 

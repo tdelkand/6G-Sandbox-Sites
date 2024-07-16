@@ -2,18 +2,19 @@
 
 # 6G-Sandbox-Sites <!-- omit in toc -->
 
-Particular information of each site for the deployment of components of the [6G-Library](https://github.com/6G-SANDBOX/6G-Library).
+
+Repository with unique information for each 6G-Sandbox site. It use composed of different yaml files with different variables usable by the [6G-Library](https://github.com/6G-SANDBOX/6G-Library) components.
+
 
 <details>
 <summary>Table of Contents</summary>
 
 - [Site Directory Structure](#site-directory-structure)
-- [Getting started](#getting-started)
-  - [Install ansible-core](#install-ansible-core)
-  - [Password Encrypt/Decrypt](#password-encryptdecrypt)
-  - [Encrypt Site File](#encrypt-site-file)
-  - [Edit Encrypted Site File](#edit-encrypted-site-file)
-  - [Decrypt Site File](#decrypt-site-file)
+- [How to encrypt your site files](#how-to-encrypt-your-site-files)
+  - [1. Install ansible-core](#1-install-ansible-core)
+  - [2. Set a password to encrypt/decrypt](#2-set-a-password-to-encryptdecrypt)
+  - [3. Encrypt your site file](#3-encrypt-your-site-file)
+- [Development Guidelines](#development-guidelines)
 
 </details>
 
@@ -24,24 +25,25 @@ site_name/       # Folder with the site name
 └── core.yaml    # File containing the encrypted site information
 ```
 
-The [`.dummy_site/core.yaml`](.dummy_site/core.yaml) file is a template with the information that has to be indicated for each platform.
+The repository is made up of yaml variable files divided into different directories representing each site. The purpose of having a different directory per site is in case future releases allow importing more than one file per site (apart from `core.yaml`).
 
-## Getting started
+The [`.dummy_site/core.yaml`](.dummy_site/core.yaml) file serves as a template of the information that can/should be indicated for each site.
 
-> [!NOTE]
-> This process has been tested on Ubuntu version 22.04.3 LTS.
+The files belonging to each site are encrypted with a passphrase using the [Ansible vault](https://docs.ansible.com/ansible/latest/vault_guide/index.html) utility.
 
-### Install ansible-core
+## How to encrypt your site files
 
-- Linux
+This section aims to serve as a guide on how to fill your site's `core.yaml` file.
 
-  ```sh
-  apt install ansible-core
-  ```
 
-### Password Encrypt/Decrypt
+#### 1. Install ansible-core
 
-The password is a random string of characters that has to be stored in a file (recommended with extension .txt).
+To use the `ansible-vault` tool, the full *ansible* libraries and binaries are not needed. You can [install ansible](https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html) in your prefered way, but package `ansible-core` is enough.
+If you do not wish to install *ansible* anywhere, remember it is already installed on the Jenkins VM so you can use it from there.
+
+#### 2. Set a password to encrypt/decrypt
+
+Your password should be a random string of characters stored in a file.
 
 > [!CAUTION]
 > Try to avoid scapable special characters as ", ', `, ´, #, $...
@@ -51,69 +53,39 @@ The password is a random string of characters that has to be stored in a file (r
 > [!TIP]
 > Typical recommendations are:
 >
-> - String size: 20
+> - String size: >=20
 > - Uppercase letters (A-Z)
 > - Lower case letters (a-z)
 > - Numbers (0-9)
 > - Special characters (excluding scapable special characters)
 >
-> Can use [online random string](https://www.random.org/strings/).
+> You can use any [online password generator](https://www.random.org/strings/) to create it.
 
-### Encrypt Site File
+#### 3. Encrypt your site file
 
 ```sh
-ansible-vault encrypt path/file_name_content.yaml --vault-password-file=path/file_name.txt
+ansible-vault encrypt <site_name>/core.yaml --vault-password-file=path/to/password.txt
 ```
 
 where:
 
-- `path/file_name_content.yaml` is the path to the file with the content to be encrypted.
-- `--vault-password-file=path/file_name.txt` is the path to the file containing the password.
+- `<site_name>/core.yaml` is the path to the file you want to encrypt.
+- `--vault-password-file=path/file_name.txt` is the path containing the password.
 
-example:
 
-```sh
-ansible-vault encrypt test/core.yaml --vault-password-file=test/pass.txt
-```
 
-This will **replace** the file test/core.yaml with the encrypted content.
+Running this command will **replace** the original contents of the file with the encrypted text.
 
-### Edit Encrypted Site File
+With the same syntaxt, you can use other `ansible-vault` commands to edit your encrypted file:
+- `ansible-vault edit`; Opens the file to correct its unencrypted content.
+- `ansible-vault decrypt`; Decrypts the content of the file, replacing the encrypted text with the unencrypted one.
 
-```sh
-ansible-vault edit test/file_name_encrypted.yaml --vault-password-file=path/file_name.txt
-```
 
-where:
 
-- `test/file_name_encrypted.yaml` is the path to the file with encrypted content.
-- `--vault-password-file=path/file_name.txt` is the path to the file containing the password.
+# Development guidelines
+Despite the main branch having a directory for all known sites, we are aware that development might involve a lot of minor commits that can blur the repo for other developers.
+Thus, the recommended way of using this repository is to fork it or to make your own branch, where you can do as many commits as you want.
+When you consider that your core.yaml file is stable enough and might not need more changes in the near future, you can merge your branch/fork into main to have everything in a default centralyzed repository.
 
-example:
-
-```sh
-ansible-vault edit test/core.yaml --vault-password-file=test/pass.txt
-```
-
-This will return the updated and encrypted file with the new changes.
-
-### Decrypt Site File
-
-```sh
-ansible-vault decrypt test/file_name_encrypted.yaml --vault-password-file=path/file_name.txt
-```
-
-where:
-
-- `test/file_name_encrypted.yaml` is the path to the file with encrypted content.
-- `--vault-password-file=path/file_name.txt` is the path to the file containing the password.
-
-example:
-
-```sh
-ansible-vault decrypt test/core.yaml --vault-password-file=test/pass.txt
-```
-
-This will replace the file test/core.yaml with the raw content.
 
 <p align="right"><a href="#readme-top">Back to top&#x1F53C;</a></p>

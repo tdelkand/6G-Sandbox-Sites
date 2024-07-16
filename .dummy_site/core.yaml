@@ -29,11 +29,12 @@ site_s3_server:
   endpoint: "http://192.168.248.148:9000"
   bucket: "trial-networks"
   region: "main"
-  skip_requesting_account_id: "true"
-  skip_credentials_validation: "true"
-  skip_metadata_api_check: "true"
-  skip_region_validation: "true"
-  force_path_style: "true"
+  insecure: true                     # Whether to explicitly allow the backend to perform "insecure" SSL requests. If omitted, the default value is false.
+  skip_credentials_validation: true  # Skip credentials validation via the STS API. Always true in MinIO S3 backends
+  skip_region_validation: true       # Skip validation of provided region name. main is not a real region
+  skip_requesting_account_id: true   # Whether to skip requesting the account ID. Always true in MinIO S3 backends
+  skip_metadata_api_check: true      # Skip usage of EC2 Metadata API. Always true in MinIO S3 backends
+  use_path_style: true
 
 # Information about each component available in your site
 # Usually unique information such as the OpenNebula template and image IDs of a specific component in your site.

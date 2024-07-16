@@ -26,11 +26,12 @@ site_s3_server:
   endpoint: "http://192.168.248.148:9000"
   bucket: "trial-networks"
   region: "main"
-  skip_requesting_account_id: "true"
-  skip_credentials_validation: "true"
-  skip_metadata_api_check: "true"
-  skip_region_validation: "true"
-  force_path_style: "true"
+  insecure: true
+  skip_credentials_validation: true
+  skip_region_validation: true
+  skip_requesting_account_id: true
+  skip_metadata_api_check: true
+  use_path_style: true
 
 site_available_components:
   tn_init:

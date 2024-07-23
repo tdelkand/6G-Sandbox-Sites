@@ -46,7 +46,7 @@ If you do not wish to install *ansible* anywhere, remember it is already install
 Your password should be a random string of characters stored in a file.
 
 > [!CAUTION]
-> Try to avoid scapable special characters as ", ', `, ´, #, $...
+> Try to avoid scapable special characters as ", ', `, ´, #, $, &,...
 > 
 > Unpredictable errors might happen.
 

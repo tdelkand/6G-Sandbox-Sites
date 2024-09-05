@@ -6,7 +6,7 @@
 #
 
 site_domain: "sample.domain.cloud"
-site_public_ip: 15.32.62.12    # Needed for VPN connections to the tn_bastion
+site_public_ip: "15.32.62.12"    # Needed for VPN connections to the tn_bastion
 
 site_hypervisor: one           # one, vmware, etc ...
 site_clusters: [0]             # In OpenNebula components, list of cluster IDs where VNets are created.
@@ -58,6 +58,12 @@ site_available_components:
   ueransim:
     template_id: ""    # <--- Please Fill
     image_id: ""       # <--- Please Fill
-  tsn:
-    quantity: 1
-    ttl: ""
+  # tsn:               # If your site does not have this, ignore them
+  #   quantity: 1
+  #   ttl: ""
+  # nokia_radio_uma:
+  # ue_stf:
+  #   origin: "http://10.11.32.205:7100"
+  #   administrator_token: "tokentokentokentokentokentokentokentokentokentokentokentoken"
+  #   device: "A6789B6789C6789D6789"
+  #   user_mail: "tnuser@fakedomain.com"

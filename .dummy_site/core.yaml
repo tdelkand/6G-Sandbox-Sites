@@ -26,7 +26,7 @@ site_admin_ssh_public_key: "ssh-rsa ... admin"
 
 # Self-hosted MinIO S3 storage details. Default values are ok (except the endpoint), but you can modify them if you know what you are doing 
 site_s3_server:
-  endpoint: "http://192.168.248.148:9000"
+  endpoint: "https://192.168.248.148:9000"
   bucket: "trial-networks"
   region: "main"
   insecure: true                     # Whether to explicitly allow the backend to perform "insecure" SSL requests. If omitted, the default value is false.

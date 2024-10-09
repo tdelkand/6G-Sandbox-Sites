@@ -42,23 +42,27 @@ site_s3_server:
 site_available_components:
   tn_init:
   tn_bastion:
-    template_id:        # <--- Please Fill
-    image_id:           # <--- Please Fill
+    template_id:                # <--- Please Fill
+    image_id:                   # <--- Please Fill
   tn_vxlan:
   vnet:
-  oneKE:                # Two OneKE Versions available
-    127:                # Deprecated, try to prefer OneKE v1.29 better
-      template_id: ""   # <--- Please Fill
+  oneKE:                        # Two OneKE Versions available
+    127:                        # Deprecated, try to prefer OneKE v1.29 better
+      template_id: ""           # <--- Please Fill
     129:
-      template_id: ""   # <--- Please Fill
+      template_id: ""           # <--- Please Fill
   open5gs:
   vm_kvm:
-    template_id: ""    # <--- Please Fill
-    image_id: ""       # <--- Please Fill
+    template_id: ""             # <--- Please Fill
+    image_id: ""                # <--- Please Fill
   ueransim:
-    template_id: ""    # <--- Please Fill
-    image_id: ""       # <--- Please Fill
-  # tsn:               # If your site does not have this, ignore them
+    template_id: ""             # <--- Please Fill
+    image_id: ""                # <--- Please Fill
+  loadcore_agent:
+    loadcore_middleware_ip: ""  # <--- Please Fill
+    template_id: ""             # <--- Please Fill
+    image_id: ""                # <--- Please Fill
+  # tsn:                        # If your site does not have this, ignore them
   #   quantity: 1
   #   ttl: ""
   # nokia_radio_uma:

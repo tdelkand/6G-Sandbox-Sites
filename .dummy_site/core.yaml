@@ -36,6 +36,11 @@ site_s3_server:
   skip_metadata_api_check: true      # Skip usage of EC2 Metadata API. Always true in MinIO S3 backends
   use_path_style: true
 
+# If present, route-manager-api instance details
+# site_routemanager:
+#   endpoint: "http://10.11.28.75:8172"
+#   token: "7W9S0yEH5HipIuxmcFxbJOepelVnu+Vs6MI3kWzvZ28="
+
 # Information about each component available in your site
 # Usually unique information such as the OpenNebula template and image IDs of a specific component in your site.
 # Other components might include the maximum quantity of avaiable components to have deployed at the same time.
